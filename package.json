@@ -1,0 +1,16 @@
+{
+  "name": "codigoexemplo-trabalho-pratico",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "",
+    "install:mahimahi": "cd ./mahimahi && npm run install:default && make install",
+    "install:code": "",
+    "call:sysctl": "sudo sysctl -w net.ipv4.ip_forward=1",
+    "install:default": "./autogen.sh && ./configure && make",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
