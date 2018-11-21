@@ -5,7 +5,7 @@ RUN apt-get install  build-essential  git  debhelper autotools-dev dh-autoreconf
 
 RUN apt-get install openvpn -y
 
-RUN curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 RUN apt-get install -y nodejs
 
 RUN useradd redes
