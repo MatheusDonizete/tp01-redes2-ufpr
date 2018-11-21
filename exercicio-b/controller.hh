@@ -11,6 +11,10 @@ private:
   bool debug_; /* Enables debugging output */
 
   /* Add member variables here */
+  unsigned int windowSize;
+  unsigned int constant;
+  unsigned int lastRTT;
+  unsigned int packetCounter;
 
 public:
   /* Public interface for the congestion controller */
@@ -37,6 +41,9 @@ public:
   /* How long to wait (in milliseconds) if there are no acks
      before sending one more datagram */
   unsigned int timeout_ms();
+
+  /* Aditional Functions implemented*/
+  unsigned int updateSize(const uint64_t wTime, const uint64_t factor, bool isConflict);
 };
 
 #endif
