@@ -7,7 +7,7 @@ using namespace std;
 
 /* Default constructor */
 Controller::Controller( const bool debug )
-  : debug_( debug ), windowSize(50), constant(3), lastRTT(100), packetCounter(0)
+  : debug_( debug ), windowSize(50), constant(4), lastRTT(100), packetCounter(0)
 {}
 
 /* Get current window size, in datagrams */
@@ -55,8 +55,8 @@ void Controller::ack_received( const uint64_t sequence_number_acked,
 {
   /* Default: take no action */
   const uint64_t rtt = timestamp_ack_received - send_timestamp_acked;
-  windowSize = updateSize(windowSize, 1/constant, rtt >= 75); 
-  windowSize = windowSize <= 13 ? 13 : windowSize; 
+  windowSize = updateSize(windowSize, 1/constant, rtt >= 90); 
+  windowSize = windowSize <= 8 ? 8 : windowSize; 
   lastRTT = rtt;
 
   if ( debug_ ) {
