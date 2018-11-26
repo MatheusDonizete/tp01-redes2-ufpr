@@ -8,5 +8,6 @@ services:
     command: /bin/bash
     volumes:
       - ./:/home/redes2
+      - /dev/net/tun:/dev/net/tun
     cap_add:
       - NET_ADMIN

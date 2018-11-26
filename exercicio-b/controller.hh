@@ -15,6 +15,7 @@ private:
   unsigned int constant;
   unsigned int lastRTT;
   unsigned int packetCounter;
+  double factor;
 
 public:
   /* Public interface for the congestion controller */
@@ -43,7 +44,7 @@ public:
   unsigned int timeout_ms();
 
   /* Aditional Functions implemented*/
-  unsigned int updateSize(const uint64_t wTime, const uint64_t factor, bool isConflict);
+  unsigned int updateSize(const uint64_t wTime, bool isConflict);
 };
 
 #endif

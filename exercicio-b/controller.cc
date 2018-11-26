@@ -7,7 +7,7 @@ using namespace std;
 
 /* Default constructor */
 Controller::Controller( const bool debug )
-  : debug_( debug ), windowSize(50), constant(4), lastRTT(100), packetCounter(0)
+  : debug_( debug ), windowSize(50), constant(1), lastRTT(100), packetCounter(0), factor(0.75)
 {}
 
 /* Get current window size, in datagrams */
@@ -34,7 +34,7 @@ void Controller::datagram_was_sent( const uint64_t sequence_number,
 {
   /* Default: take no action */
   if(after_timeout) {
-    windowSize = windowSize / constant; //reduz tamanho da janela a metade no caso 
+    windowSize = windowSize / constant; 
   }
 
   if ( debug_ ) {
@@ -55,8 +55,8 @@ void Controller::ack_received( const uint64_t sequence_number_acked,
 {
   /* Default: take no action */
   const uint64_t rtt = timestamp_ack_received - send_timestamp_acked;
-  windowSize = updateSize(windowSize, 1/constant, rtt >= 90); 
-  windowSize = windowSize <= 8 ? 8 : windowSize; 
+  windowSize = updateSize(windowSize, rtt >= 90); 
+ windowSize = windowSize <= 8 ? 8 : windowSize; 
   lastRTT = rtt;
 
   if ( debug_ ) {
@@ -77,14 +77,14 @@ unsigned int Controller::timeout_ms()
 }
 
 
-unsigned int Controller::updateSize(const uint64_t wTime, const uint64_t factor, const bool isConflict){
+unsigned int Controller::updateSize(const uint64_t wTime, const bool isConflict){
   if(packetCounter >= wTime) {    
     packetCounter = 0;
     if(isConflict){
       return wTime * factor;
     }
 
-    return wTime + 1;
+    return wTime + constant;
   } 
   
 

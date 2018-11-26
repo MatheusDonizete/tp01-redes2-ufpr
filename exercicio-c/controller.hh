@@ -11,6 +11,12 @@ private:
   bool debug_; /* Enables debugging output */
 
   /* Add member variables here */
+  uint64_t windowSize;
+  double packetsPerSecond;
+  double poissonValue;
+  uint64_t packetCounter;
+  uint64_t currentTime;
+  double bValue;
 
 public:
   /* Public interface for the congestion controller */
@@ -37,6 +43,18 @@ public:
   /* How long to wait (in milliseconds) if there are no acks
      before sending one more datagram */
   unsigned int timeout_ms();
+
+  /* função que calcula a atualização bayesiana
+  * @param integer packetsPerSecond: número de pacotes por segundo (0 - 1000)
+  * @return 
+  */
+  double bayesianUpdate(const double oldValue, const uint64_t tick);
+
+  double poissonCalc();
+
+  uint64_t avg(const uint64_t value);
+  
+  int scheduler(const int times, const double alpha);  
 };
 
 #endif
